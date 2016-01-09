@@ -3,20 +3,20 @@ var data = [
       "text":"I. DOWN THE RABBIT-HOLE",
       "loc": {  
          "x":0,
-         "y":200,
+         "y":192,
       },
-      "font": "40px Arial",
+      "font": "36px Arial",
       "color": "#000000",
-      "font_size": 60,
+      "font_size": 36,
    },
    {  
       "text":"Alice was beginning to get very tired",
       "loc": {  
-         "x":350,
-         "y":400,
+         "x":360,
+         "y":360,
       },
-      "font": "20px Garamond",
+      "font": "24px Garamond",
       "color": "#000000",
-      "font_size": 30,
+      "font_size": 24,
    }
 ]
