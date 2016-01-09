@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+	<script src="alice_dummy.js"></script>
+</head>
+<style>
+	#canvas {
+		top: 0px;
+		left: 0px;
+		border:1px solid #000000;
+	}
+</style>
+
+<body>
+	<canvas id="canvas"></canvas>
+	
+    <script type="text/javascript">
+    
+    	var tile_size = 12;
+    	var canvas_size = 50;
+    	
+        var canvas = document.getElementById('canvas'),
+            ctx    = canvas.getContext('2d');
+
+        canvas.width = 5;
+        canvas.height = 5;
+        
+		var map = [];
+		for (i = 0; i < canvas_size; i++) {
+		    temp = [];
+		    for (j = 0; j < canvas_size; j++) {
+		        temp.push(1);
+		    }
+			map.push(temp);
+		}
+		
+		
+        
+        for (var i = 0; i < data.length; i++) {
+        	ctx.font = data[i].font;
+			x = data[i].loc.x;
+			y = data[i].loc.y;
+			width = ctx.measureText(data[i].text).width;
+			height = data[i].font_size;
+			var tile_width = Math.round(width / tile_size);
+			var tile_height = Math.round(height / tile_size);
+			
+			var tile_x = Math.round(x / tile_size);
+			var tile_y = Math.round(y / tile_size);
+			
+			data[i].loc.y2 = y + height;
+			data[i].loc.x2 = x + width;
+			
+			data[i].loc.tile_x = tile_x;
+			data[i].loc.tile_y = tile_y;
+			
+			data[i].loc.tile_x2 = tile_x + tile_width;
+			data[i].loc.tile_y2 = tile_y + tile_height;
+			
+			
+			for (var c = tile_x; c < tile_x + tile_width; c++) {
+				for (var d = tile_y; d < tile_y + tile_height; d++) {
+					map[d][c] = 2;
+				}
+			}
+        }
+        
+        document.write(JSON.stringify(data));
+        
+        
+    </script>
+</body>
+
+</html>
