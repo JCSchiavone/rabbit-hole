@@ -18,5 +18,25 @@ var data = [
       "font": "24px Garamond",
       "color": "#000000",
       "font_size": 24,
+   },
+   {  
+      "text":"Go down...",
+      "loc": {  
+         "x":240,
+         "y":480,
+      },
+      "font": "24px Garamond",
+      "color": "#000000",
+      "font_size": 24,
+   },
+   {  
+      "text":"Welcome to the bottom!",
+      "loc": {  
+         "x":120,
+         "y":1200,
+      },
+      "font": "24px Garamond",
+      "color": "#FF0000",
+      "font_size": 24,
    }
 ]
