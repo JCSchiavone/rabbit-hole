@@ -24,13 +24,13 @@ var Clarity = function () {
 
     this.alert_errors   = false;
     this.log_info       = true;
-    this.tile_size      = 16;
+    this.tile_size      = 12;
     this.limit_viewport = false;
     this.jump_switch    = 0;
     
     this.viewport = {
-        x: 200,
-        y: 200
+        x: 300,
+        y: 300
     };
     
     this.camera = {
@@ -157,7 +157,7 @@ Clarity.prototype.load_map = function (map) {
 
     this.player.loc.x = map.player.x * this.tile_size || 0;
     this.player.loc.y = map.player.y * this.tile_size || 0;
-    this.player.colour = map.player.colour || '#000';
+    this.player.colour = '#000000';
     
     this.camera = {
         x: 0,
@@ -168,9 +168,13 @@ Clarity.prototype.load_map = function (map) {
         x: 0,
         y: 0
     };
-
     this.log('Successfully loaded map data.');
 
+    return true;
+};
+
+Clarity.prototype.load_words = function(wordfile) {
+    this.words = [{text:"Hello World",loc:{x1:100,y1:300,x2:200,y2:144},font:"36px Arial",color:"#FF0000"}]
     return true;
 };
 
@@ -188,12 +192,12 @@ Clarity.prototype.draw_tile = function (x, y, tile, context) {
         x,
         y,
         this.tile_size,
-        this.tile_size
+this.tile_size
     );
 };
 
 Clarity.prototype.draw_map = function (context, fore) {
-
+/*
     for (var y = 0; y < this.current_map.data.length; y++) {
 
         for (var x = 0; x < this.current_map.data[y].length; x++) {
@@ -217,7 +221,18 @@ Clarity.prototype.draw_map = function (context, fore) {
             }
         }
     }
-
+*/
+    var _this = this;
+    var lines = this.words.filter(function (line) {
+        return line.loc.x1 < _this.camera.x + _this.viewport.x || line.loc.x2 >= _this.camera.x - _this.viewport.x || line.loc.y1 < _this.camera.y + _this.viewport.y || line.loc.y2 >= _this.camera.y - _this.viewport.y	
+    })
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    lines.forEach(function (line) {
+        ctx.font = line.font;
+	ctx.fillStyle = line.color;
+	ctx.fillText(line.text, line.loc.x1 - _this.camera.x, line.loc.y2 - _this.camera.y);
+    })
     if (!fore) this.draw_map(context, true);
 };
 

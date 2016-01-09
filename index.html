@@ -26,8 +26,8 @@
         var canvas = document.getElementById('canvas'),
             ctx    = canvas.getContext('2d');
 
-        canvas.width = 900;
-        canvas.height = 650;
+        canvas.width = 600;
+        canvas.height = 600;
         
         /* Customisable map data */
 
@@ -177,7 +177,7 @@
         var game = new Clarity();
         game.set_viewport(canvas.width, canvas.height);
         game.load_map(map);
-
+        game.load_words("foobar.txt");
         /* Limit the viewport to the confines of the map */
         
         game.limit_viewport = true;
