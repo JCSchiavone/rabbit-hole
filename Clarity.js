@@ -510,8 +510,8 @@ Clarity.prototype.draw_player = function (context) {
 	}
 	
 		context.drawImage(drawing,this.player.loc.x + this.tile_size / 2 - this.camera.x,
-			this.player.loc.y + this.tile_size / 2 - this.camera.y - 90,
-			70, 95);
+			this.player.loc.y + this.tile_size / 2 - this.camera.y - 120,
+			100, 125);
 	
 
 
