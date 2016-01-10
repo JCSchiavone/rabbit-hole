@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+	<script src="alice_dummy0.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Cinzel+Decorative:700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Josefin+Slab:400,300,700,300italic,400italic,700italic' rel='stylesheet' type='text/css'>
+</head>
+<style>
+	#canvas {
+		top: 0px;
+		left: 0px;
+		border:1px solid #000000;
+	}
+</style>
+
+<body>
+	<canvas id="canvas"></canvas>
+	
+    <script type="text/javascript">
+    
+    	var tile_size = 12;
+    	var canvas_size_x = 75;
+    	var canvas_size_y = 50;
+    	
+    	
+        var canvas = document.getElementById('canvas'),
+            ctx    = canvas.getContext('2d');
+
+        canvas.width = 4;
+        canvas.height = 4;
+        
+		var hard_code = { 0: {'x': 0, 'y': 192},
+					  1: {'x': 360, 'y': 960}, 
+					};
+        
+        var curr_x = 0;
+        var curr_y = 0;
+        
+        counter = 7;
+        
+        var down = true;
+        
+        x_gap = 100;
+        y_gap = 100;
+        
+        for (var i = 0; i < data.length; i++) {
+        	ctx.font = data[i].font;
+        	
+        	if (typeof(hard_code[i]) !== 'undefined') {
+        		curr_x = hard_code[i].x;
+        		curr_y = hard_code[i].y;
+        	} else {
+        		if (counter == 10) {
+        			down = !down;
+        			counter = 0;
+        			width = ctx.measureText(data[i].text).width;
+        			curr_x += width;
+        		}
+        		
+        		if (down) {
+        			curr_x = curr_x + x_gap;
+        			curr_x = curr_y + y_gap;
+        		} else {
+        			curr_x = curr_x + x_gap;
+        			curr_x = curr_y - y_gap;
+        		}
+        	}
+        	data[i].loc = {x: curr_x,
+        					y: curr_y};
+        
+        	ss = data[i].font.split(" ")[0];
+        	data[i].font_size = parseInt(ss.substring(0, ss.length - 2));
+        }
+        	
+     		
+        
+        document.write("data = " + JSON.stringify(data));
+        
+        
+    </script>
+</body>
+
+</html>
