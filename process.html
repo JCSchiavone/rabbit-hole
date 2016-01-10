@@ -105,10 +105,34 @@
 			}
         }
         
-        document.write(JSON.stringify(data));
-        
+
+	function download(filename) {
+	  var element = document.createElement('a');
+	  if (filename == "map"){
+	  	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + "map_grid = " + JSON.stringify(map));
+	  } else {
+	  	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + "data = " + JSON.stringify(data));
+	  }
+	  element.setAttribute('download', filename);
+	
+	  element.style.display = 'none';
+	  document.body.appendChild(element);
+	
+	  element.click();
+	
+	  document.body.removeChild(element);
+	}
+
         
     </script>
 </body>
+
+		<form onsubmit="download('map');">
+		  <input type="submit" value="Download Map">
+		</form>
+		
+		<form onsubmit="download('data');">
+		  <input type="submit" value="Download Data">
+		</form>
 
 </html>
