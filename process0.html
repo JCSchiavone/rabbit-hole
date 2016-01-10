@@ -42,34 +42,59 @@
         
         var down = true;
         
+        var left_right = false;
+        
         x_gap = 156;
-        y_gap = 120;
+        y_gap = 60;
         
         prev_width = 0;
         
         for (var i = 0; i < data.length; i++) {
         	ctx.font = data[i].font;
         	
-        	if (typeof(hard_code[i]) !== 'undefined') {
-        		curr_x = hard_code[i].x;
-        		curr_y = hard_code[i].y;
-        	} else {
-        		if (counter == 10) {
-        			curr_x += 120;
-        			down = !down;
-        			counter = 0;
-        		}
-        		
-        		if (down) {
-        			curr_x = curr_x + prev_width + 12;
-        			curr_y = curr_y + y_gap;
-        		} else {
-        			curr_x = curr_x + x_gap;
-        			curr_y = curr_y - y_gap;
-        		}
+        	var curr_width = ctx.measureText(data[i].text).width;
+        	
+        	if (data[i].text == "The rabbit-hole went straight on like a tunnel") {
+        		left_right = true;
         	}
         	
-        	prev_width = ctx.measureText(data[i].text).width;
+        	if (data[i].text == "burning with curiosity,") {
+        		down = true
+        		counter = 0
+        	}
+        	
+        	if (data[i].text == "when suddenly,") {
+        		left_right = false
+        		down = true
+        		counter = 0
+        	}
+        	
+        	if (left_right) {
+        		curr_x = curr_x - (curr_width/2.2);
+        		curr_y = curr_y + 72;
+        	} else {
+        	
+	        	if (typeof(hard_code[i]) !== 'undefined') {
+	        		curr_x = hard_code[i].x;
+	        		curr_y = hard_code[i].y;
+	        	} else {
+	        		if (counter == 10) {
+	        			curr_x += 120;
+	        			down = !down;
+	        			counter = 0;
+	        		}
+	        		
+	        		if (down) {
+	        			curr_x = curr_x + (prev_width / 1.5);
+	        			curr_y = curr_y + y_gap;
+	        		} else {
+	        			curr_x = curr_x + (prev_width / 2.0);
+	        			curr_y = curr_y - y_gap;
+	        		}
+	        	}
+	        }
+        	
+        	prev_width = curr_width;
         	
         	prev_width = Math.ceil(prev_width/12.0) * 12;
         	

@@ -307,7 +307,7 @@ Clarity.prototype.move_player = function () {
     
     this.player.vel.x *= .9;
     
-    if (left1.solid || left2.solid || right1.solid || right2.solid) {
+    if ((left1.solid || left2.solid || right1.solid || right2.solid) && !((right1.solid && left1.solid) || (right2.solid && left2.solid))) {
 
         /* fix overlap */
 
@@ -332,10 +332,9 @@ Clarity.prototype.move_player = function () {
         
     }
     
-    if (top1.solid || top2.solid || bottom1.solid || bottom2.solid) {
+    if ((bottom1.solid || bottom2.solid) && this.player.vel.y > 0) {
 
-        /* fix overlap */
-        
+    /* fix overlap */
         while (this.get_tile(x_near1, Math.floor(this.player.loc.y / this.tile_size)).solid
             || this.get_tile(x_near2, Math.floor(this.player.loc.y / this.tile_size)).solid)
             this.player.loc.y += 0.1;
@@ -345,7 +344,8 @@ Clarity.prototype.move_player = function () {
             this.player.loc.y -= 0.1;
 
         /* tile bounce */
-        
+    
+    
         var bounce = 0;
         
         if (top1.solid && top1.bounce > bounce) bounce = top1.bounce;
@@ -360,7 +360,7 @@ Clarity.prototype.move_player = function () {
             this.player.on_floor = true;
             this.player.can_jump = true;
         }
-        
+    
     }
     
     // adjust camera
