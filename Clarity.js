@@ -232,7 +232,9 @@ Clarity.prototype.draw_map = function (context, fore) {
         var x = line.loc.x2 - line.loc.x;
         var y = line.loc.y2 - line.loc.y;
         ctx.save()
-        context.translate(line.loc.x - _this.camera.x + (x - x * Math.cos(line.angle)) / 2.0, line.loc.y2 - _this.camera.y + (x * Math.sin(line.angle) + y * Math.sin(Math.PI/2.0 - line.angle) - y) / 2.0);
+        var trans_x = line.loc.x - _this.camera.x + (x - x * Math.cos(line.angle)) / 2.0;
+        var trans_y = line.loc.y2 - _this.camera.y + (x * Math.sin(line.angle) + y * Math.sin(Math.PI/2.0 - line.angle) - y) / 2.0;
+        ctx.translate(trans_x, trans_y);
         ctx.rotate(-1 * line.angle);
 	    ctx.fillText(line.text, 0, 0);
         ctx.restore();
