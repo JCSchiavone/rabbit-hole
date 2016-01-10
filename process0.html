@@ -51,8 +51,17 @@
         
         for (var i = 0; i < data.length; i++) {
         	ctx.font = data[i].font;
-        	
-        	var curr_width = ctx.measureText(data[i].text).width;
+
+        	if (typeof(data[i].image) !== 'undefined') {
+        		var curr_width = 200;
+        	} else {
+        		var curr_width = ctx.measureText(data[i].text).width;
+        		ss = data[i].font.split(" ")[0];
+	        	data[i].font_size = parseInt(ss.substring(0, ss.length - 2));
+	        	if (typeof(data[i].color) == 'undefined') {
+	        		data[i].color = '#000000';
+	        	}
+        	}
         	
         	if (data[i].text == "The rabbit-hole went straight on like a tunnel") {
         		left_right = true;
@@ -85,7 +94,7 @@
 	        		}
 	        		
 	        		if (down) {
-	        			curr_x = curr_x + (prev_width / 1.5);
+	        			curr_x = curr_x + (prev_width / 1.7);
 	        			curr_y = curr_y + y_gap;
 	        		} else {
 	        			curr_x = curr_x + (prev_width / 2.0);
@@ -102,11 +111,7 @@
         	data[i].loc = {x: curr_x,
         					y: curr_y};
         
-        	ss = data[i].font.split(" ")[0];
-        	data[i].font_size = parseInt(ss.substring(0, ss.length - 2));
-        	if (typeof(data[i].color) == 'undefined') {
-        		data[i].color = '#000000';
-        	}
+        	
         }
         	
      		

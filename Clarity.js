@@ -222,11 +222,28 @@ Clarity.prototype.draw_map = function (context, fore) {
     
     var _this = this;
     var lines = this.words.filter(function (line) {
-        return line.loc.x < _this.camera.x + _this.viewport.x || line.loc.x2 >= _this.camera.x - _this.viewport.x || line.loc.y < _this.camera.y + _this.viewport.y || line.loc.y2 >= _this.camera.y - _this.viewport.y	
+        return (line.loc.x < _this.camera.x + _this.viewport.x && line.loc.x2 >= _this.camera.x - _this.viewport.x) && (line.loc.y < _this.camera.y + _this.viewport.y && line.loc.y2 >= _this.camera.y - _this.viewport.y);	
     })
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext("2d");
     lines.forEach(function (line) {
+    	if (typeof(line.image) !== 'undefined') {
+    		
+    		ctx.save()
+    		img=new Image();
+    		img.src = line.image;
+    		
+    		var x = line.loc.x2 - line.loc.x;
+        	var y = line.loc.y2 - line.loc.y;
+
+			var trans_x = line.loc.x - _this.camera.x + (x - x * Math.cos(line.angle)) / 2.0;
+        	var trans_y = line.loc.y2 - _this.camera.y + (x * Math.sin(line.angle) + y * Math.sin(Math.PI/2.0 - line.angle) - y) / 2.0;
+        	ctx.translate(trans_x, trans_y);
+    		
+    		ctx.drawImage(img, 0, 0, 200, 300);
+    		ctx.restore();
+    		
+    	} else {
         ctx.font = line.font;
 	    ctx.fillStyle = line.color;
         var x = line.loc.x2 - line.loc.x;
@@ -238,6 +255,7 @@ Clarity.prototype.draw_map = function (context, fore) {
         ctx.rotate(-1 * line.angle);
 	    ctx.fillText(line.text, 0, 0);
         ctx.restore();
+       }
     })
     if (!fore) this.draw_map(context, true);
 };
