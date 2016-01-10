@@ -1744,8 +1744,8 @@ data = [{
 	"angle": 0
 }, {
 	"text": "either the locks were too large,",
-	"font": "24px Josefin Slab",
-	"font_size": 24,
+	"font": "30px Josefin Slab",
+	"font_size": 30,
 	"color": "#000000",
 	"loc": {
 		"x": 9006.079853567848,
@@ -1760,8 +1760,8 @@ data = [{
 	"angle": 0
 }, {
 	"text": "or the key was too small,",
-	"font": "24px Josefin Slab",
-	"font_size": 24,
+	"font": "16px Josefin Slab",
+	"font_size": 16,
 	"color": "#000000",
 	"loc": {
 		"x": 9186.079853567848,
@@ -1872,8 +1872,8 @@ data = [{
 	"angle": 0
 }, {
 	"text": "little door about fifteen inches high.",
-	"font": "24px Josefin Slab",
-	"font_size": 24,
+	"font": "16px Josefin Slab",
+	"font_size": 16,
 	"color": "#000000",
 	"loc": {
 		"x": 10555.491618273732,
@@ -1952,8 +1952,8 @@ data = [{
 	"angle": 0
 }, {
 	"text": "that it led into a small passage,",
-	"font": "24px Josefin Slab",
-	"font_size": 24,
+	"font": "16px Josefin Slab",
+	"font_size": 16,
 	"color": "#000000",
 	"loc": {
 		"x": 11642.550441803145,
@@ -1968,8 +1968,8 @@ data = [{
 	"angle": 0
 }, {
 	"text": "not much larger than a rat-hole;",
-	"font": "24px Josefin Slab",
-	"font_size": 24,
+	"font": "16px Josefin Slab",
+	"font_size": 16,
 	"color": "#000000",
 	"loc": {
 		"x": 11822.550441803145,
@@ -2000,9 +2000,9 @@ data = [{
 	"angle": 0
 }, {
 	"text": "passage into the loveliest garden you ever saw.",
-	"font": "24px Josefin Slab",
-	"font_size": 24,
-	"color": "#000000",
+	"color": "#FF748C",
+	"font": "30px Handlee",
+	"font_size": 30,
 	"loc": {
 		"x": 12224.550441803145,
 		"y": 4632,
@@ -2080,7 +2080,7 @@ data = [{
 	"angle": 0
 }, {
 	"text": "\"Oh,\"",
-	"font": "24px Josefin Slab",
+	"font": "italic 24px Josefin Slab",
 	"font_size": 24,
 	"color": "#000000",
 	"loc": {
@@ -2432,7 +2432,7 @@ data = [{
 	"angle": 0
 }, {
 	"text": "However, this bottle was not marked \"poison,\"",
-	"font": "24px Nothing You Could Do",
+	"font": "24px Josefin Slab",
 	"font_size": 24,
 	"color": "#7F0000",
 	"loc": {
