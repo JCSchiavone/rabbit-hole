@@ -48,58 +48,27 @@
         		
         		width = 200;
         		height = 300;
+        		
         		data[i].loc.y2 = y + width;
 				data[i].loc.x2 = x + height;
+				
 				if (data[i].angle == null)
 					data[i].angle = 0.0;
-				var tile_width = Math.round(width / tile_size);
-				var tile_height = Math.round(height / tile_size);
+					
+				var tile_width = Math.floor(width / tile_size) + 2;
+				var tile_height = Math.floor(height / tile_size) - 25;
 			
-				var tile_x = Math.round(x / tile_size);
-				var tile_y = Math.round(y / tile_size);	
+				var tile_x = Math.ceil(x / tile_size) + 26;
+				var tile_y = Math.ceil(y / tile_size) + 28;	
 				data[i].loc.tile_x = tile_x;
 				data[i].loc.tile_y = tile_y;
 			
 				data[i].loc.tile_x2 = tile_x + tile_width;
 				data[i].loc.tile_y2 = tile_y + tile_height;			
 
-			var c = {
-				x : tile_x + tile_width / 2,
-				y : tile_y + tile_height / 2
-			}
-
-			var temp_x = tile_x - c.x;
-			var temp_y = tile_y - c.y;
-
-			if (data[i].angle == null)
-				data[i].angle = 0.0;
-
-			var angle = -1 * data[i].angle;
-
-			var p1 = {
-				x : temp_x * Math.cos(angle) - temp_y * Math.sin(angle) + c.x,
-				y : temp_x * Math.sin(angle) + temp_y * Math.cos(angle) + c.y
-			}
-			var p2 = {
-				x : (temp_x+tile_width) * Math.cos(angle) - temp_y * Math.sin(angle) + c.x,
-				y : (temp_x+tile_width) * Math.sin(angle) + temp_y * Math.cos(angle) + c.y
-			}
-			var p3 = {
-				x : temp_x * Math.cos(angle) - (temp_y+tile_height) * Math.sin(angle) + c.x,
-				y : temp_x * Math.sin(angle) + (temp_y+tile_height) * Math.cos(angle) + c.y
-			}
-
-			var bax = p2.x - p1.x
-			var bay = p2.y - p1.y
-			var dax = p3.x - p1.x
-			var day = p3.y - p1.y
 
 			for (var c = Math.max(0, tile_x); Math.min(canvas_size_y-1, c < tile_x + tile_width); c++) {
 				for (var d = Math.max(0,Math.round(tile_y - tile_width / 2)); d < Math.min(canvas_size_y-1, Math.round(tile_y + tile_height + tile_width / 2)); d++) {
-					if (((c - p1.x) * bax + (d - p1.y) * bay >= 0.0) && 
-						((c - p2.x) * bax + (d - p2.y) * bay <= 0.0) && 
-						((c - p1.x) * dax + (d - p1.y) * day >= 0.0) && 
-						((c - p3.x) * dax + (d - p3.y) * day <= 0.0))
 						map[d][c] = -2;
 				}
 			}

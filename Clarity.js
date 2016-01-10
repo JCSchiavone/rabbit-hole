@@ -149,6 +149,9 @@ Clarity.prototype.load_map = function (map) {
                 case -1:
                     _this.current_map.data[y][x] = map.keys[2];
                     break;
+                case -2:
+                	_this.current_map.data[y][x] = map.keys[3];
+                	break;
                 default:
                     _this.current_map.data[y][x] = map.keys[1];
             }
@@ -226,6 +229,7 @@ Clarity.prototype.draw_map = function (context, fore) {
         }
     }
     
+    
     var _this = this;
     var lines = this.words.filter(function (line) {
         return (line.loc.x < _this.camera.x + _this.viewport.x && line.loc.x2 >= _this.camera.x - _this.viewport.x) && (line.loc.y < _this.camera.y + _this.viewport.y && line.loc.y2 >= _this.camera.y - _this.viewport.y);	
@@ -235,7 +239,7 @@ Clarity.prototype.draw_map = function (context, fore) {
     lines.forEach(function (line) {
     	if (typeof(line.image) !== 'undefined') {
     		
-    		ctx.save()
+    		ctx.save();
     		img=new Image();
     		img.src = line.image;
     		
@@ -330,6 +334,10 @@ Clarity.prototype.move_player = function () {
     this.player.loc.y += this.player.vel.y;
     
     this.player.vel.x *= .9;
+    
+    if (left1.go_thru || left2.go_thru || right1.go_thru || right2.go_thru) {
+    	window.location.replace("section2.html");
+    }
     
     if ((left1.solid || left2.solid || right1.solid || right2.solid) && !((right1.solid && left1.solid) || (right2.solid && left2.solid))) {
 
