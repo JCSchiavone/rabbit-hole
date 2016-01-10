@@ -135,22 +135,29 @@ Clarity.prototype.load_map = function (map) {
     
     this.current_map.width = 0;
     this.current_map.height = 0;
+    map.data.forEach(function (row, y) {
+        
+        _this.current_map.height = Math.max(_this.current_map.height, y);
 
-    map.keys.forEach(function (key) {
-
-        map.data.forEach(function (row, y) {
+        row.forEach(function (tile, x) {
             
-            _this.current_map.height = Math.max(_this.current_map.height, y);
-
-            row.forEach(function (tile, x) {
-                
-                _this.current_map.width = Math.max(_this.current_map.width, x);
-
-                if (tile == key.id)
-                    _this.current_map.data[y][x] = key;
-            });
+            _this.current_map.width = Math.max(_this.current_map.width, x);
+            switch (tile) {
+                case 0:
+                    _this.current_map.data[y][x] = map.keys[0];
+                    break;
+                case -1:
+                    _this.current_map.data[y][x] = map.keys[2];
+                    break;
+                default:
+                    _this.current_map.data[y][x] = map.keys[1];
+            }
+            _this.current_map.data[y][x].id = tile;
+            //if (y == 17)
+            //    console.log(_this.current_map.data[y][x])
         });
     });
+    //console.log(this.current_map.data[17]);
     
     this.current_map.width_p = this.current_map.width * this.tile_size;
     this.current_map.height_p = this.current_map.height * this.tile_size;
@@ -197,7 +204,7 @@ Clarity.prototype.draw_tile = function (x, y, tile, context) {
 };
 
 Clarity.prototype.draw_map = function (context, fore) {
-    /*
+    
     for (var y = 0; y < this.current_map.data.length; y++) {
 
         for (var x = 0; x < this.current_map.data[y].length; x++) {
@@ -218,7 +225,6 @@ Clarity.prototype.draw_map = function (context, fore) {
             );
         }
     }
-    */
     
     var _this = this;
     var lines = this.words.filter(function (line) {
@@ -420,12 +426,16 @@ Clarity.prototype.move_player = function () {
         }
     }
     
-    if(this.last_tile != tile.id && tile.script) {
+    if(this.last_tile != tile.type && tile.script) {
     
         eval(this.current_map.scripts[tile.script]);
     }
     
-    this.last_tile = tile.id;
+    this.last_tile = tile.type;
+    
+    //if (bottom.type != 0)
+        //console.log(bottom1.type + "|" + bottom1.id);
+    
 };
 
 Clarity.prototype.update_player = function () {

@@ -35,9 +35,9 @@
 		    temp = [];
 		    for (j = 0; j < canvas_size_x; j++) {
 		    	if (i == 0 || j == 0 || i+1 == canvas_size_y || j+1 == canvas_size_x)
-		    		temp.push(2);
+		    		temp.push(-1);
 		    	else
-		        	temp.push(1);
+		        	temp.push(0);
 		    }
 			map.push(temp);
 		}
@@ -94,16 +94,18 @@
 			var dax = p3.x - p1.x
 			var day = p3.y - p1.y
 
-			for (var c = Math.max(0, tile_x); Math.min(canvas_size_y-1, c < tile_x + tile_width); c++) {
+			for (var c = Math.max(0, tile_x); c < Math.min(canvas_size_x-1, tile_x + tile_width); c++) {
 				for (var d = Math.max(0,Math.round(tile_y - tile_width / 2)); d < Math.min(canvas_size_y-1, Math.round(tile_y + tile_height + tile_width / 2)); d++) {
 					if (((c - p1.x) * bax + (d - p1.y) * bay >= 0.0) && 
 						((c - p2.x) * bax + (d - p2.y) * bay <= 0.0) && 
 						((c - p1.x) * dax + (d - p1.y) * day >= 0.0) && 
-						((c - p3.x) * dax + (d - p3.y) * day <= 0.0))
-						map[d][c] = 2;
+						((c - p3.x) * dax + (d - p3.y) * day <= 0.0)) {
+						map[d][c] = i+1;
+					}
 				}
 			}
         }
+        
         
 
 	function download(filename) {
