@@ -455,12 +455,22 @@ Clarity.prototype.update_player = function () {
 };
 
 Clarity.prototype.draw_player = function (context) {
-
+	
 	drawing = new Image();
-	drawing.src = "alice.png";
-	context.drawImage(drawing,this.player.loc.x + this.tile_size / 2 - this.camera.x,
-		this.player.loc.y + this.tile_size / 2 - this.camera.y - 90,
-		70, 95);
+
+	if (this.key.up) {
+		drawing.src = "alice_up.png";
+	} 
+	
+	else if (this.player.vel.y > this.current_map.gravity.y + 5) {
+		drawing.src = "alice_down.png";
+	} else {
+		drawing.src = "alice.png";
+	}
+	
+		context.drawImage(drawing,this.player.loc.x + this.tile_size / 2 - this.camera.x,
+			this.player.loc.y + this.tile_size / 2 - this.camera.y - 90,
+			70, 95);
 	
 
 
