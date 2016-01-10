@@ -127,37 +127,57 @@ Clarity.prototype.load_map = function (map) {
 
     this.current_map = map;
 
-    this.current_map.background = map.background || '#333';
-    this.current_map.gravity = map.gravity || {x: 0, y: 0.3};
-    this.tile_size = map.tile_size || 16;
-
     var _this = this;
-    
-    this.current_map.width = 0;
-    this.current_map.height = 0;
-    map.data.forEach(function (row, y) {
-        
-        _this.current_map.height = Math.max(_this.current_map.height, y);
 
+    var temp_map_data = [];
+    map.data.forEach(function (row, y) {
+        var temp_row = []
+        _this.current_map.height = Math.max(_this.current_map.height, y);
         row.forEach(function (tile, x) {
-            
+            var temp = {};
             _this.current_map.width = Math.max(_this.current_map.width, x);
             switch (tile) {
                 case 0:
-                    _this.current_map.data[y][x] = map.keys[0];
+                    temp = map.keys[0];
                     break;
                 case -1:
-                    _this.current_map.data[y][x] = map.keys[2];
+                    temp = map.keys[2];
                     break;
                 default:
-                    _this.current_map.data[y][x] = map.keys[1];
+                    temp = map.keys[1];
             }
-            _this.current_map.data[y][x].id = tile;
-            //if (y == 17)
-            //    console.log(_this.current_map.data[y][x])
+            var foobar = row.slice(x)[0];
+            temp.id = foobar;
+            if (y == 80 && x > 30){
+                console.log("temp: "+x + ","+y+"|"+temp.id);
+                //console.log("column: "+(x));
+                //console.log("in row: "+temp_row[temp_row.length - 1].id);
+                //if (temp_row.length > 30)
+                    console.log("back at 30: " + temp_row[30].id)
+            }
+            // Prevents replacing of ids after initial assignment. TODO: Figure out why this is necessary
+            //if(_this.current_map.data[y][x].id == null)
+            temp_row.push(temp); 
         });
+        if(y == 80)
+            console.log("AHHH: "+temp_row[30].id)
+        temp_map_data.push(temp_row);
+        if (y >= 80){
+            console.log(y)
+            console.log(temp_map_data[80][30])
+        }
     });
-    //console.log(this.current_map.data[17]);
+
+    this.current_map.data = temp_map_data;
+
+    this.current_map.height = map.data.length;
+    this.current_map.width = map.data[0].length;
+    //console.log(this.current_map.height);
+    //console.log(this.current_map.width);
+
+    this.current_map.background = map.background || '#333';
+    this.current_map.gravity = map.gravity || {x: 0, y: 0.3};
+    this.tile_size = map.tile_size || 16;
     
     this.current_map.width_p = this.current_map.width * this.tile_size;
     this.current_map.height_p = this.current_map.height * this.tile_size;
