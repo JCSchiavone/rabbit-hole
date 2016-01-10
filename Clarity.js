@@ -207,7 +207,7 @@ Clarity.prototype.draw_tile = function (x, y, tile, context) {
 };
 
 Clarity.prototype.draw_map = function (context, fore) {
-    
+    /*
     for (var y = 0; y < this.current_map.data.length; y++) {
 
         for (var x = 0; x < this.current_map.data[y].length; x++) {
@@ -228,7 +228,7 @@ Clarity.prototype.draw_map = function (context, fore) {
             );
         }
     }
-    
+   */ 
     
     var _this = this;
     var lines = this.words.filter(function (line) {

@@ -54,6 +54,8 @@
 
         	if (typeof(data[i].image) !== 'undefined') {
         		var curr_width = 200;
+        		curr_x += 200;
+        		curr_y -= 200;
         	} else {
         		var curr_width = ctx.measureText(data[i].text).width;
         		ss = data[i].font.split(" ")[0];
@@ -67,7 +69,7 @@
         		left_right = true;
         	}
         	
-        	if (data[i].text == "burning with curiosity,") {
+        	if (data[i].text == "and, burning with curiosity,") {
         		down = true
         		counter = 0
         	}
