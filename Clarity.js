@@ -336,7 +336,12 @@ Clarity.prototype.move_player = function () {
     this.player.vel.x *= .9;
     
     if (left1.go_thru || left2.go_thru || right1.go_thru || right2.go_thru) {
-    	window.location.replace("section2.html");
+    	if (window.location.href.indexOf("section") > -1) {
+    		window.location.replace("section3.html");
+    	} else {
+    		window.location.replace("section2.html");
+    	}
+    	
     }
     
     if ((left1.solid || left2.solid || right1.solid || right2.solid) && !((right1.solid && left1.solid) || (right2.solid && left2.solid))) {

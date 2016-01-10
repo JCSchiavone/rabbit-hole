@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>D o w n the Rabbit Hole</title>
+    
+    <link rel="shortcut icon" href="favicon2.ico" type="image/x-icon">
+	<link rel="icon" href="favicon2.ico" type="image/x-icon">
+
+    <link rel="stylesheet" type="text/css" href="style.css" />
+
+    <script type="text/javascript" src="Clarity.js"></script>
+    <script type="text/javascript" src="words3.js"></script>
+    <script type="text/javascript" src="map3.js"></script>
+    
+    <link href='https://fonts.googleapis.com/css?family=Handlee' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Amatic+SC:700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Nothing+You+Could+Do' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Cinzel+Decorative:700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Josefin+Slab:400,300,700,300italic,400italic,700italic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <script type="text/javascript">
+
+        window.requestAnimFrame =
+            window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.oRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            function(callback) {
+                return window.setTimeout(callback, 1000 / 60);
+        };
+
+        var canvas = document.getElementById('canvas'),
+            ctx    = canvas.getContext('2d');
+
+        canvas.width = 900;
+        canvas.height = 600;
+        
+        /* Customisable map data */
+
+        var map = {
+        
+            tile_size: 12,
+        
+            /*
+            
+            Key variables:
+            
+            type       [required] - an integer that corresponds with a tile in the data array.
+            colour   [required] - any javascript compatible colour variable.
+            solid    [optional] - whether the tile is solid or not, defaults to false.
+            bounce   [optional] - how much velocity is preserved upon hitting the tile, 0.5 is half.
+            jump     [optional] - whether the player can jump while over the tile, defaults to false.
+            friction [optional] - friction of the tile, must have X and Y values (e.g {x:0.5, y:0.5}).
+            gravity  [optional] - gravity of the tile, must have X and Y values (e.g {x:0.5, y:0.5}).
+            fore     [optional] - whether the tile is drawn in front of the player, defaults to false.
+            script   [optional] - refers to a script in the scripts section, executed if it is touched.
+            
+            */
+            
+            keys: [
+                {type: 0, colour: '#888', solid: 0},
+                {type: 1,colour: '#555',solid: 1,bounce: 0.35},
+                {type: 2,colour: '#000',solid: 1,bounce: 0.35},
+                {type: 3,colour: '#ffff',solid: 1,bounce: 0.35, go_thru: 1},
+            ],
+
+            /* Default gravity of the map */
+            
+            gravity: {
+                x: 0,
+                y: 0.2
+            },
+            
+            /* Velocity limits */
+        
+            vel_limit: {
+                x: 6,
+                y: 6
+            },
+        
+            /* Movement speed when the key is pressed */
+            
+            movement_speed: {
+                jump: 6,
+                left: 1,
+                right: 1
+            },
+            
+            /* The coordinates at which the player spawns and the colour of the player */
+        
+            player: {
+                x: 2,
+                y: 2,
+                colour: '#FF9900'
+            },
+            
+            /* scripts refered to by the "script" variable in the tile keys */
+        
+            scripts: {
+                change_colour: 'this.player.colour = "#"+(Math.random()*0xFFFFFF<<0).toString(16);',
+                /* you could load a new map variable here */
+                next_level: 'alert("Yay! You won! Reloading map.");this.load_map(map);',
+                death: 'alert("You died!");this.load_map(map);',
+                unlock: 'this.current_map.keys[10].solid = 0;this.current_map.keys[10].colour = "#888";'
+            }
+        };
+        
+        map.data = map_grid;
+        
+        /* Setup of the engine */
+        
+        var game = new Clarity();
+        game.set_viewport(canvas.width, canvas.height);
+        game.load_map(map);
+        game.load_words(data);
+        /* Limit the viewport to the confines of the map */
+        
+        game.limit_viewport = true;
+
+        var Loop = function() {
+
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            game.update();
+            game.draw(ctx);
+
+            window.requestAnimFrame(Loop);
+        };
+
+        /* Start */
+        
+        Loop();
+        
+    </script>
+</body>
+
+</html>
