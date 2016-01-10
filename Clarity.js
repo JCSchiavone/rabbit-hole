@@ -285,7 +285,7 @@ Clarity.prototype.move_player = function () {
     var right2  = this.get_tile(t_x_right, y_near2);
 
 
-    if (tile.jump && this.jump_switch > 15) {
+    if (/*tile.jump && */this.jump_switch > 15) {
 
         this.player.can_jump = true;
         
