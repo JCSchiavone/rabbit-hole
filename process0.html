@@ -31,19 +31,21 @@
         canvas.width = 4;
         canvas.height = 4;
         
-		var hard_code = { 0: {'x': 0, 'y': 192},
+		var hard_code = { 0: {'x': 5, 'y': 192},
 					  1: {'x': 360, 'y': 960}, 
 					};
         
         var curr_x = 0;
         var curr_y = 0;
         
-        counter = 7;
+        counter = 0;
         
         var down = true;
         
-        x_gap = 100;
-        y_gap = 100;
+        x_gap = 60;
+        y_gap = 120;
+        
+        prev_width = 0;
         
         for (var i = 0; i < data.length; i++) {
         	ctx.font = data[i].font;
@@ -53,25 +55,33 @@
         		curr_y = hard_code[i].y;
         	} else {
         		if (counter == 10) {
+        			curr_x += 120;
         			down = !down;
         			counter = 0;
-        			width = ctx.measureText(data[i].text).width;
-        			curr_x += width;
         		}
         		
         		if (down) {
-        			curr_x = curr_x + x_gap;
-        			curr_x = curr_y + y_gap;
+        			curr_x = curr_x + prev_width + 12;
+        			curr_y = curr_y + y_gap;
         		} else {
         			curr_x = curr_x + x_gap;
-        			curr_x = curr_y - y_gap;
+        			curr_y = curr_y - y_gap;
         		}
         	}
+        	
+        	prev_width = ctx.measureText(data[i].text).width;
+        	
+        	prev_width = Math.ceil(prev_width/12.0) * 12;
+        	
+        	counter += 1;
         	data[i].loc = {x: curr_x,
         					y: curr_y};
         
         	ss = data[i].font.split(" ")[0];
         	data[i].font_size = parseInt(ss.substring(0, ss.length - 2));
+        	if (typeof(data[i].color) == 'undefined') {
+        		data[i].color = '#000000';
+        	}
         }
         	
      		
