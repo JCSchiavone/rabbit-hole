@@ -456,19 +456,14 @@ Clarity.prototype.update_player = function () {
 
 Clarity.prototype.draw_player = function (context) {
 
-    context.fillStyle = this.player.colour;
+	drawing = new Image();
+	drawing.src = "alice.png";
+	context.drawImage(drawing,this.player.loc.x + this.tile_size / 2 - this.camera.x,
+		this.player.loc.y + this.tile_size / 2 - this.camera.y - 90,
+		70, 95);
+	
 
-    context.beginPath();
 
-    context.arc(
-        this.player.loc.x + this.tile_size / 2 - this.camera.x,
-        this.player.loc.y + this.tile_size / 2 - this.camera.y,
-        this.tile_size / 2 - 1,
-        0,
-        Math.PI * 2
-    );
-
-    context.fill();
 };
 
 Clarity.prototype.update = function () {
