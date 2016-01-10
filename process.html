@@ -34,7 +34,10 @@
 		for (i = 0; i < canvas_size_y; i++) {
 		    temp = [];
 		    for (j = 0; j < canvas_size_x; j++) {
-		        temp.push(1);
+		    	if (i == 0 || j == 0 || i+1 == canvas_size_y || j+1 == canvas_size_x)
+		    		temp.push(2);
+		    	else
+		        	temp.push(1);
 		    }
 			map.push(temp);
 		}
