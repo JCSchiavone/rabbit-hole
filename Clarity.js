@@ -231,7 +231,13 @@ Clarity.prototype.draw_map = function (context, fore) {
     lines.forEach(function (line) {
         ctx.font = line.font;
 	    ctx.fillStyle = line.color;
-	    ctx.fillText(line.text, line.loc.x - _this.camera.x, line.loc.y2 - _this.camera.y);
+        var x = line.loc.x2 - line.loc.x;
+        var y = line.loc.y2 - line.loc.y;
+        ctx.save()
+        context.translate(line.loc.x - _this.camera.x + (x - x * Math.cos(line.angle)) / 2.0, line.loc.y2 - _this.camera.y + (x * Math.sin(line.angle) + y * Math.sin(Math.PI/2.0 - line.angle) - y) / 2.0);
+        ctx.rotate(-1 * line.angle);
+	    ctx.fillText(line.text, 0, 0);
+        ctx.restore();
     })
     if (!fore) this.draw_map(context, true);
 };
@@ -433,7 +439,7 @@ Clarity.prototype.update_player = function () {
     if (this.key.up) {
 
         if (this.player.can_jump && this.player.vel.y > -this.current_map.vel_limit.y) {
-            
+            this.player.vel.y = Math.min(0, this.player.vel.y)
             this.player.vel.y -= this.current_map.movement_speed.jump;
             this.player.can_jump = false;
         }

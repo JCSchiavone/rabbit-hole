@@ -18,6 +18,7 @@ var data = [
       "font": "24px Garamond",
       "color": "#000000",
       "font_size": 24,
+      "angle":0.0
    },
    {  
       "text":"Go down...",
@@ -28,6 +29,7 @@ var data = [
       "font": "24px Garamond",
       "color": "#000000",
       "font_size": 24,
+      "angle":0.5
    },
    {  
       "text":"Welcome to the bottom!",
@@ -38,5 +40,6 @@ var data = [
       "font": "24px Garamond",
       "color": "#FF0000",
       "font_size": 24,
+      "angle":0.0
    }
 ]

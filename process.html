@@ -21,7 +21,7 @@
     
     	var tile_size = 12;
     	var canvas_size_x = 75;
-    	var canvas_size_y = 110;
+    	var canvas_size_y = 120;
     	
     	
         var canvas = document.getElementById('canvas'),
@@ -41,9 +41,7 @@
 		    }
 			map.push(temp);
 		}
-		
-		
-        
+		   
         for (var i = 0; i < data.length; i++) {
         	ctx.font = data[i].font;
 			x = data[i].loc.x;
@@ -64,11 +62,45 @@
 			
 			data[i].loc.tile_x2 = tile_x + tile_width;
 			data[i].loc.tile_y2 = tile_y + tile_height;
-			
-			
-			for (var c = tile_x; c < tile_x + tile_width; c++) {
-				for (var d = tile_y; d < tile_y + tile_height; d++) {
-					map[d][c] = 2;
+
+			var c = {
+				x : tile_x + tile_width / 2,
+				y : tile_y + tile_height / 2
+			}
+
+			var temp_x = tile_x - c.x;
+			var temp_y = tile_y - c.y;
+
+			if (data[i].angle == null)
+				data[i].angle = 0.0;
+
+			var angle = -1 * data[i].angle;
+
+			var p1 = {
+				x : temp_x * Math.cos(angle) - temp_y * Math.sin(angle) + c.x,
+				y : temp_x * Math.sin(angle) + temp_y * Math.cos(angle) + c.y
+			}
+			var p2 = {
+				x : (temp_x+tile_width) * Math.cos(angle) - temp_y * Math.sin(angle) + c.x,
+				y : (temp_x+tile_width) * Math.sin(angle) + temp_y * Math.cos(angle) + c.y
+			}
+			var p3 = {
+				x : temp_x * Math.cos(angle) - (temp_y+tile_height) * Math.sin(angle) + c.x,
+				y : temp_x * Math.sin(angle) + (temp_y+tile_height) * Math.cos(angle) + c.y
+			}
+
+			var bax = p2.x - p1.x
+			var bay = p2.y - p1.y
+			var dax = p3.x - p1.x
+			var day = p3.y - p1.y
+
+			for (var c = Math.max(0, tile_x); Math.min(canvas_size_y-1, c < tile_x + tile_width); c++) {
+				for (var d = Math.max(0,Math.round(tile_y - tile_width / 2)); d < Math.min(canvas_size_y-1, Math.round(tile_y + tile_height + tile_width / 2)); d++) {
+					if (((c - p1.x) * bax + (d - p1.y) * bay >= 0.0) && 
+						((c - p2.x) * bax + (d - p2.y) * bay <= 0.0) && 
+						((c - p1.x) * dax + (d - p1.y) * day >= 0.0) && 
+						((c - p3.x) * dax + (d - p3.y) * day <= 0.0))
+						map[d][c] = 2;
 				}
 			}
         }
