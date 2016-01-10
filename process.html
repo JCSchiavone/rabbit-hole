@@ -4,7 +4,8 @@
 <head>
 	<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
 	<script src="alice_dummy.js"></script>
-	<link href='https://fonts.googleapis.com/css?family=Josefin+Slab:400,300,700,300italic,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Cinzel+Decorative:700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Josefin+Slab:400,300,700,300italic,400italic,700italic' rel='stylesheet' type='text/css'>
 </head>
 <style>
 	#canvas {
@@ -20,9 +21,8 @@
     <script type="text/javascript">
     
     	var tile_size = 12;
-    	var canvas_size_x = 75;
-    	var canvas_size_y = 120;
-    	
+    	var canvas_size_x = 2005;
+    	var canvas_size_y = 210;	
     	
         var canvas = document.getElementById('canvas'),
             ctx    = canvas.getContext('2d');
@@ -105,7 +105,7 @@
 			}
         }
         
-        document.write(JSON.stringify(map));
+        document.write(JSON.stringify(data));
         
         
     </script>
